@@ -33,6 +33,15 @@ const AccountSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  //Tracks in-game currency, starts at 0 on new account
+  currency: {
+    type: Number,
+    default: 0,
+  },
+  //Tracks items user has unlocked, items in array show up in inventory
+  inventory: {
+    type: [String],
+  },
   createdDate: {
     type: Date,
     default: Date.now,
