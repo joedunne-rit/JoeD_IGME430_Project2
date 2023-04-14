@@ -81,8 +81,9 @@ const SignupWindow = (props) => {
 
 const init = () => {
     const loginButton = document.getElementById('loginButton');
-    const singupButton = document.getElementById('signupButton');
+    const signupButton = document.getElementById('signupButton');
 
+    //Swap component to login/signup verisons when clicked on top bar
     loginButton.addEventListener('click', (e) => {
         e.preventDefault();
         ReactDOM.render(<LoginWindow />,
@@ -97,6 +98,7 @@ const init = () => {
         return false;
     });
 
+    //Intially load login version
     ReactDOM.render(<LoginWindow />,
         document.getElementById('content'));
 }
