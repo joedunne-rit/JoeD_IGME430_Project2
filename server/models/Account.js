@@ -39,9 +39,13 @@ const AccountSchema = new mongoose.Schema({
     default: 0,
   },
   //Tracks items user has unlocked, items in array show up in inventory
-  //inventory: {
-  //  type: [String],
-  //},
+  inventory: {
+    type: [String],
+  },
+  //Tracks what is currently equipped on account's character
+  equipped: {
+    type: String,
+  },
   createdDate: {
     type: Date,
     default: Date.now,

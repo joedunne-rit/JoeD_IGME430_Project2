@@ -9,6 +9,8 @@ const router = (app) => {
 
   app.get('/user', mid.requiresLogin, controllers.User.userPage);
 
+  app.get('/getInventory', mid.requiresLogin, controllers.User.getInventory);
+
   app.get('/logout', mid.requiresLogin, controllers.Account.logout);
 
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
