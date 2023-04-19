@@ -6,14 +6,19 @@ const ReactDOM = require('react-dom');
 const UserPreview = (props) => {
     return(
         <div id="appearance">
-            <img src="" alt="preview of character" />
+            <img src="assets/img/spellbook.png" alt="preview of character" />
         </div>
     )
 }
 
-const changePreview = () => {
-    
-}
+//When item in inventory is clicked, change image in preview to that item
+//Will be attached to items in inventory
+const changePreview = (e) => {
+    ReactDOM.render(
+        <UserPreview item={e.target.item} />,
+        document.getElementById('preview')
+    );
+};
 
 const Inventory = (props) => {
     const items = props.items.map(item => {

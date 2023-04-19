@@ -1,0 +1,6 @@
+Stuff to do:
+Figure out how to store items in account model
+Get store/inventory displays working
+-Maybe use numbers to easily represent items?
+Implement socket.io and start developing gameplay controllers
+format game page to properly display game
