@@ -56,6 +56,7 @@ const loadInventory = async () => {
         <Inventory items={data.items}/>,
         document.getElementById('items')
     )
+    console.log('loadInventory finished');
 }
 
 const init = () => {
@@ -65,7 +66,7 @@ const init = () => {
 
     inventoryButton.addEventListener('click', (e) => {
         e.preventDefault();
-        loadInventory;
+        loadInventory();
     });
 
     storeButton.addEventListener('click', (e) => {
