@@ -6,10 +6,8 @@ const userPage = (req, res) => res.render('user');
 
 const getInventory = async (req, res) => {
   try {
-    const query = { owner: req.session.account.username }
+    const query = { username: req.session.account.username };
     const docs = await Account.find(query).select('inventory').exec();
-    //Why is this not returning proper data?
-    console.log(docs);
 
     return res.json({ items: docs });
   } catch (err) {
@@ -18,7 +16,18 @@ const getInventory = async (req, res) => {
   }
 };
 
+const purchase = async (req, res) => {
+  try {
+    const query = {owner: req.session.account.username};
+    const docs = await Account.find(query);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: 'Error purchasing new item'});
+  }
+}
+
 module.exports = {
   userPage,
   getInventory,
+  purchase,
 };

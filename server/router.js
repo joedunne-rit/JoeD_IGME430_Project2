@@ -12,6 +12,7 @@ const router = (app) => {
   app.get('/game', mid.requiresLogin, controllers.Game.gamePage);
 
   app.get('/getInventory', mid.requiresLogin, controllers.User.getInventory);
+  app.post('/purchase', mid.requiresLogin, controllers.User.purchase);
 
   app.get('/logout', mid.requiresLogin, controllers.Account.logout);
 

@@ -22,7 +22,7 @@ const changePreview = (e) => {
 
 const Inventory = (props) => {
     const items = props.items.map(item => {
-        const itemName = `assets/img/${item.name}`;
+        const itemName = `assets/img/${item}`;
         return(
             <div name={item.name} className="item">
                 <img src={itemName} alt='preview of item'/>
@@ -42,18 +42,32 @@ const Inventory = (props) => {
 
 const Store = (props) => {
     return(
-        <div name='testName' className="item">
+        <div name='testName' price='300' className="item">
             <img src='assets/img/testName.png' alt="preview of item"></img>
             <div id='price'>300</div>
         </div>
     )
 }
 
+//Function that will be attached to any store item
+//When store item is clicked, specified item is added to inventory after transaction
+const purchase = (e) => {
+    e.preventDefault()
+    const itemName = e.target.name;
+    const price = e.target.price;
+    helper.sendPost('/purchase', {itemName, price})
+
+    return false;
+}
+
+//Whenever tab is swapped to inventory, this function is called to properly retrieve user's inventory
+//Takes said inventory, and uses the data to properly render inventory tab
 const loadInventory = async () => {
     const response = await fetch('/getInventory');
     const data = await response.json();
+    console.log(data.items[0].inventory);
     ReactDOM.render(
-        <Inventory items={data.items}/>,
+        <Inventory items={data.items[0].inventory}/>,
         document.getElementById('items')
     )
     console.log('loadInventory finished');
@@ -86,7 +100,7 @@ const init = () => {
         document.getElementById('items')
     )
 
-    loadInventory;
+    loadInventory();
 }
 
 window.onload = init;
