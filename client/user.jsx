@@ -4,27 +4,30 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 const UserPreview = (props) => {
+    const itemName = `${props.item}`;
     return(
         <div id="appearance">
-            <img src="assets/img/spellbook.png" alt="preview of character" />
+            <img src={itemName} alt="preview of character" />
         </div>
     )
 }
 
 //When item in inventory is clicked, change image in preview to that item
 //Will be attached to items in inventory
-const changePreview = (e) => {
+//Additionally, will change equipped value in account model
+const equip = (e) => {
     ReactDOM.render(
-        <UserPreview item={e.target.item} />,
+        <UserPreview item={e.target.src} />,
         document.getElementById('preview')
     );
+    //Todo: change equipped value for account when clicked
 };
 
 const Inventory = (props) => {
     const items = props.items.map(item => {
         const itemName = `assets/img/${item}`;
         return(
-            <div name={item.name} className="item">
+            <div name={item} className="item" onClick={(e) => equip(e)}>
                 <img src={itemName} alt='preview of item'/>
             </div>
             //add event listener to apply item to preview
@@ -70,7 +73,6 @@ const loadInventory = async () => {
         <Inventory items={data.items[0].inventory}/>,
         document.getElementById('items')
     )
-    console.log('loadInventory finished');
 }
 
 const init = () => {
@@ -92,7 +94,7 @@ const init = () => {
     });
 
     ReactDOM.render(
-        <UserPreview />,
+        <UserPreview item='assets/img/spellbook.png'/>,
         document.getElementById('preview')
     );
     ReactDOM.render(
