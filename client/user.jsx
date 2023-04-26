@@ -12,22 +12,29 @@ const UserPreview = (props) => {
     )
 }
 
+const loadPreview = async () => {
+    //Something's going wrong here, can't tell what
+    const response = await fetch('/getEquipped');
+    const data = await response.json();
+    ReactDOM.render(
+        <UserPreview item={data.item[0].equipped} />,
+        document.getElementById('preview')
+    );
+}
+
 //When item in inventory is clicked, change image in preview to that item
 //Will be attached to items in inventory
 //Additionally, will change equipped value in account model
-const equip = (e) => {
-    ReactDOM.render(
-        <UserPreview item={e.target.src} />,
-        document.getElementById('preview')
-    );
-    //Todo: change equipped value for account when clicked
+const equip = (e, itemName) => {
+    helper.sendPost('/equip', {itemName});
+    loadPreview();
 };
 
 const Inventory = (props) => {
     const items = props.items.map(item => {
         const itemName = `assets/img/${item}`;
         return(
-            <div name={item} className="item" onClick={(e) => equip(e)}>
+            <div name={item} className="item" onClick={(e) => equip(e, itemName)}>
                 <img src={itemName} alt='preview of item'/>
             </div>
             //add event listener to apply item to preview
@@ -68,7 +75,6 @@ const purchase = (e) => {
 const loadInventory = async () => {
     const response = await fetch('/getInventory');
     const data = await response.json();
-    console.log(data.items[0].inventory);
     ReactDOM.render(
         <Inventory items={data.items[0].inventory}/>,
         document.getElementById('items')
@@ -102,6 +108,7 @@ const init = () => {
         document.getElementById('items')
     )
 
+    loadPreview();
     loadInventory();
 }
 

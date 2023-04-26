@@ -12,7 +12,9 @@ const router = (app) => {
   app.get('/game', mid.requiresLogin, controllers.Game.gamePage);
 
   app.get('/getInventory', mid.requiresLogin, controllers.User.getInventory);
+  app.get('/getEquipped', mid.requiresLogin, controllers.User.getEquipped);
   app.post('/purchase', mid.requiresLogin, controllers.User.purchase);
+  app.post('/equip', mid.requiresLogin, controllers.User.equip)
 
   app.get('/logout', mid.requiresLogin, controllers.Account.logout);
 
