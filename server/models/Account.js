@@ -45,7 +45,7 @@ const AccountSchema = new mongoose.Schema({
   // Tracks what is currently equipped on account's character
   equipped: {
     type: String,
-    default: 'assets/img/red.png'
+    default: 'assets/img/red.png',
   },
   createdDate: {
     type: Date,

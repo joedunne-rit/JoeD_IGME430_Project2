@@ -5,7 +5,7 @@ const gamePage = (req, res) => res.render('game');
 // all users playing
 
 // Planning to use socket.io
-const gameBoard = [];
+// const gameBoard = [];
 
 module.exports = {
   gamePage,
