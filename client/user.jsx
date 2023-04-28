@@ -3,6 +3,7 @@ const helper = require('./helper.js');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
+//React component for displaying the user's currently equipped appearance
 const UserPreview = (props) => {
     const itemName = `${props.item}`;
     return(
@@ -12,6 +13,7 @@ const UserPreview = (props) => {
     )
 }
 
+//Gets currently equipped appearance from database, then updates user preview
 const loadPreview = async () => {
     // /getEquipped is finishing first for some reason
     const response = await fetch('/getEquipped');
@@ -22,14 +24,14 @@ const loadPreview = async () => {
     );
 }
 
-//When item in inventory is clicked, change image in preview to that item
-//Will be attached to items in inventory
-//Additionally, will change equipped value in account model
+//Sends post request to server to change currently equipped apparance
+//Afterwards, updates user preview
 const equip = (e, itemName) => {
     helper.sendPost('/equip', {itemName});
     loadPreview();
 };
 
+//React component for inventory tab
 const Inventory = (props) => {
     const items = props.items.map(item => {
         const itemName = `assets/img/${item}`;
@@ -47,8 +49,9 @@ const Inventory = (props) => {
     );
 }
 
-//Function that will be attached to any store item
-//When store item is clicked, specified item is added to inventory after transaction
+//Takes a specified item & makes a transaction in server
+//Sends post request to server with the item's name & price
+//All shop items have a button tied to this function
 const purchase = (e, itemName, price) => {
     e.preventDefault();
     helper.sendPost('/purchase', {itemName, price});
@@ -56,6 +59,7 @@ const purchase = (e, itemName, price) => {
     return false;
 }
 
+//Makes post request to server to add money to an account
 const addCurrency = (e) => {
     e.preventDefault();
     const money = 300;
@@ -64,6 +68,7 @@ const addCurrency = (e) => {
     return false;
 }
 
+//React component for item store
 const Store = (props) => {
     const items = ['blue.png', 'purple.png', 'cyan.png', 'orange.png'];
     const shopList = items.map(item => {
