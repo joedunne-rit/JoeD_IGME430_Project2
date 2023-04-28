@@ -27,8 +27,8 @@ const loadPreview = async () => {
 //Sends post request to server to change currently equipped apparance
 //Afterwards, updates user preview
 const equip = (e, itemName) => {
-    helper.sendPost('/equip', {itemName});
-    loadPreview();
+    helper.sendPost('/equip', {itemName}, loadPreview);
+    //loadPreview();
 };
 
 //React component for inventory tab
@@ -70,14 +70,21 @@ const addCurrency = (e) => {
 
 //React component for item store
 const Store = (props) => {
-    const items = ['blue.png', 'purple.png', 'cyan.png', 'orange.png'];
+    const items = ['blue.png', 'purple.png', 'cyan.png', 'orange.png', 'pink.png', 'yellow.png', 'spellbook.png'];
     const shopList = items.map(item => {
         const imageName = `/assets/img/${item}`;
+        let price = 300;
+        if (item === 'orange.png' || item === 'pink.png' || item === 'yellow.png'){
+            price = 500;
+        }
+        else if (item === 'spellbook.png'){
+            price = 1500;
+        }
         return(
             <div name={item} price='300' className='item'>
                 <img src={imageName} alt='preview of item'></img>
-                <div class='price'>300</div>
-                <button class='purchase' onClick={(e) => purchase(e, item, 300)}>Buy</button>
+                <div class='price'>{price}</div>
+                <button class='purchase' onClick={(e) => purchase(e, item, price)}>Buy</button>
             </div>
         )
     })
@@ -120,7 +127,7 @@ const init = () => {
     });
 
     ReactDOM.render(
-        <UserPreview item='assets/img/spellbook.png'/>,
+        <UserPreview item='assets/img/red.png'/>,
         document.getElementById('preview')
     );
     ReactDOM.render(
