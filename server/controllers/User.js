@@ -71,6 +71,7 @@ const purchase = async (req, res) => {
   }
 };
 
+//Adds an amount of currency to account
 const addCurrency = async (req, res) => {
   let doc;
   try {
@@ -95,6 +96,7 @@ const addCurrency = async (req, res) => {
   }
 };
 
+//Gets Account info and changes what is currently equipped
 const equip = async (req, res) => {
   let doc;
   try {
