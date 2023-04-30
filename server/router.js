@@ -17,6 +17,10 @@ const router = (app) => {
   app.post('/addCurrency', mid.requiresLogin, controllers.User.addCurrency);
   app.post('/equip', mid.requiresLogin, controllers.User.equip);
 
+  //app.post('/movePlayer', mid.requiresLogin, controllers.Game.movePlayer);
+  //app.post('/removePlayer', mid.requiresLogin, controller.Game.removePlayer);
+  //app.post('/addPlayer', mid.requiresLogin, controller.Game.addPlayer);
+
   app.get('/logout', mid.requiresLogin, controllers.Account.logout);
 
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
