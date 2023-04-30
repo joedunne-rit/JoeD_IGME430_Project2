@@ -19,7 +19,7 @@ module.exports = {
         ],
     },
     mode: 'production',
-    devtool: 'inline-source-map',
+    //devtool: 'inline-source-map',
     watchOptions: {
         aggregateTimeout: 200,
     },

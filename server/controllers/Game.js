@@ -7,7 +7,7 @@ const gamePage = (req, res) => res.render('game');
 // Planning to use socket.io
 // const gameBoard = [];
 
-/*const addPlayer = () => {
+/* const addPlayer = () => {
 
 }
 
@@ -17,7 +17,7 @@ const movePlayer = () => {
 
 const removePlayer = () => {
 
-}*/
+} */
 
 module.exports = {
   gamePage,

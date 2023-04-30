@@ -2,6 +2,7 @@
 const helper = require('./helper.js');
 const React = require('react');
 const ReactDOM = require('react-dom');
+//const e = require('express');
 
 //React component for displaying the user's currently equipped appearance
 const UserPreview = (props) => {
@@ -108,6 +109,46 @@ const loadInventory = async () => {
     )
 }
 
+const changePassword = (e) => {
+    e.preventDefault();
+
+    console.log('changePassword clicked');
+    const pass = e.target.querySelector('#pass').value;
+    const pass2 = e.target.querySelector('#pass2').value;
+
+    if(!pass||!pass2) {
+        helper.handleError('All fields are required!');
+        return false;
+    }
+
+    if (pass !== pass2) {
+        helper.handleError('Passwords do not match!');
+        return false;
+    }
+
+    helper.sendPost(e.target.action, {pass, pass2});
+
+    return false;
+}
+
+const PasswordChange = (props) => {
+    return(
+        <form id="passwordChange"
+            name="passwordChange"
+            onSubmit={changePassword}
+            action="/changePassword"
+            method="POST"
+            className="mainForm"
+        >
+            <label htmlFor="pass">Password: </label>
+            <input id="pass" type="text" name="pass" placeholder="password" />
+            <label htmlFor="pass">Password: </label>
+            <input id="pass2" type="text" name="pass2" placeholder="retype password" />
+            <input className="formSubmit" type="submit" value="Change Password" />
+        </form>
+    )
+}
+
 const init = () => {
     //click to swap inv/shop
     const inventoryButton = document.getElementById('inventoryButton');
@@ -133,6 +174,10 @@ const init = () => {
     ReactDOM.render(
         <Inventory items={[]}/>,
         document.getElementById('items')
+    )
+    ReactDOM.render(
+        <PasswordChange />,
+        document.getElementById('password')
     )
 
     loadPreview();
