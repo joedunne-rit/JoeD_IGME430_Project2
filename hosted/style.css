@@ -141,3 +141,14 @@ nav:nth-child(1) {
     color: red;
     font-style: italic;
 }
+
+#gameboard {
+    display: grid;
+    width:400px;
+    grid: 100px / auto auto auto auto;
+    border-color:black;
+}
+
+.tile {
+    height: 100px;
+}
