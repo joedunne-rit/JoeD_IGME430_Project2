@@ -18,13 +18,13 @@ const {Account} = models;
 let playerList = [];
 
 
-const addPlayer = (id, image) => {
+const addPlayer = (id, image, callback) => {
   console.log('player added');
   playerList.push({id, image, x: 0, y: 0});
+  callback(playerList);
 }
 
-const movePlayer = (id, direction) => {
-  //find id in playerList
+const movePlayer = (id, direction, callback) => {
   const player = playerList.find(player => player.id === id);
   console.log(player);
   console.log(direction);
@@ -62,10 +62,15 @@ const movePlayer = (id, direction) => {
       console.log('player moved'); 
       break;
   }
+
+  callback(playerList);
 }
 
-const removePlayer = (id) => {
+const removePlayer = (id, callback) => {
   console.log('player removed');
+  //remove id from playerList
+  
+  callback(playerList);
 } 
 
 module.exports = {
