@@ -2,13 +2,17 @@ const models = require('../models');
 
 const { Account } = models;
 
+// Returns login page
 const loginPage = (req, res) => res.render('login');
 
+// Logs out the user
 const logout = (req, res) => {
   req.session.destroy();
   return res.redirect('/');
 };
 
+// Takes a username and password
+// If username exists & password matches it, logs user in under that account
 const login = (req, res) => {
   const username = `${req.body.username}`;
   const pass = `${req.body.pass}`;
@@ -19,7 +23,7 @@ const login = (req, res) => {
 
   return Account.authenticate(username, pass, (err, account) => {
     if (err || !account) {
-      return res.status(401).json({ error: 'Wrong username or password!' });
+      return res.status(401).json({ error: 'Wrong username or password' });
     }
 
     req.session.account = Account.toAPI(account);
@@ -28,6 +32,9 @@ const login = (req, res) => {
   });
 };
 
+// Takes a username and 2 password values
+// Uses username and password values to create new account
+// Immediately logs in new account
 const signup = async (req, res) => {
   const username = `${req.body.username}`;
   const pass = `${req.body.pass}`;
@@ -57,6 +64,8 @@ const signup = async (req, res) => {
   }
 };
 
+// Takes in 2 password values
+// Changes the password of the current user using new password
 const changePassword = async (req, res) => {
   const pass = `${req.body.pass}`;
   const pass2 = `${req.body.pass2}`;
@@ -74,7 +83,6 @@ const changePassword = async (req, res) => {
     const doc = await Account.findOne({ username: req.session.account.username }).exec();
     doc.password = hash;
     await doc.save();
-    console.log('password changed');
     return res.status(200).json({ message: 'Password changed' });
   } catch (err) {
     console.log(err);

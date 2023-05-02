@@ -1,16 +1,14 @@
-const helper = require('./helper.js');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const socket = io();
 
-let image;
 let id;
-let tile1 = '/assets/img/white.png';
-let tile2 = '/assets/img/grey.png';
 
+//React component containing game display
 const GameBoard = (props) => {
     let tiles = [];
 
+    //As a default, return basic tile layout
     if (props.playerList === undefined){
         return (
             <div id='gameboard'>
@@ -34,9 +32,12 @@ const GameBoard = (props) => {
         )
     }
 
+    //When playerList is given, runs through each individual tile to see what to render
+    //playerCheck helps by ensuring only 1 player is rendered per tile
     let playerCheck = false;
     for (let i = 0; i < 4; i++){
         for (let j = 0; j < 4; j++){
+            //If someone in playerList matches current coordinates, render that player
             for (let player of props.playerList){
                 if (player.x === j && player.y === i && !playerCheck)
                 {
@@ -45,6 +46,8 @@ const GameBoard = (props) => {
                     playerCheck = true;
                 }
             }
+            //If no player is on current coordinate, render a default tile
+            //Color of tile is dependent on coordinates
             if (!playerCheck) {
                 //add default tile image (white or grey, depending on space)
                 if(i%2 === 0){
@@ -65,23 +68,6 @@ const GameBoard = (props) => {
         }
     }
 
-    /*<img class='tile' src='/assets/img/white.png' alt=''></img>
-            <img class='tile' src='/assets/img/grey.png' alt=''></img>
-            <img class='tile' src='/assets/img/white.png' alt=''></img>
-            <img class='tile' src='/assets/img/grey.png' alt=''></img>
-            <img class='tile' src='/assets/img/grey.png' alt=''></img>
-            <img class='tile' src='/assets/img/white.png' alt=''></img>
-            <img class='tile' src='/assets/img/grey.png' alt=''></img>
-            <img class='tile' src='/assets/img/white.png' alt=''></img>
-            <img class='tile' src='/assets/img/white.png' alt=''></img>
-            <img class='tile' src='/assets/img/grey.png' alt=''></img>
-            <img class='tile' src='/assets/img/white.png' alt=''></img>
-            <img class='tile' src='/assets/img/grey.png' alt=''></img>
-            <img class='tile' src='/assets/img/grey.png' alt=''></img>
-            <img class='tile' src='/assets/img/white.png' alt=''></img>
-            <img class='tile' src='/assets/img/grey.png' alt=''></img>
-            <img class='tile' src='/assets/img/white.png' alt=''></img>*/
-
     return(
         <div id='gameboard'>
             {tiles}
@@ -97,6 +83,7 @@ const moveInput = (e, direction) => {
     socket.emit('move', info)
 }
 
+//React component containing player controls
 const Controls = (props) => {
     return(
         <div id='controller'>
@@ -108,6 +95,7 @@ const Controls = (props) => {
     );
 };
 
+//Rerenders game display using new player data
 const updateDisplay = (playerList) => {
     ReactDOM.render(
         <GameBoard playerList={playerList}/>,
@@ -116,13 +104,11 @@ const updateDisplay = (playerList) => {
 }
 
 //When page loads, gets user's equipped appearance form database & stores it on client
-//Afterwards, sends event notifying server that they have joined
+//Afterwards, sends event notifying server that they have joined, including their appearance and id
 const openGame = async () => {
     const response = await fetch('/getEquipped');
     const data = await response.json();
     const image = data.item[0].equipped;
-    //Need to retrieve session info from server
-    //That means send request to server then come back here w/ info to place in id
     const userData = await fetch('/getID');
     const temp = await userData.json();
     const newID = temp.id;

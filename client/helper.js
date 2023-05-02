@@ -28,7 +28,6 @@ const sendPost = async (url, data, handler) => {
   
     if(result.error) {
       handleError(result.error);
-      //console.log(result.error);
     }
 
     if(handler) {

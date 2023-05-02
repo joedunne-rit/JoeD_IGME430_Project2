@@ -1,3 +1,5 @@
+// Middleware that checks if a user is logged in
+// Redirects to login page if not
 const requiresLogin = (req, res, next) => {
   if (!req.session.account) {
     return res.redirect('/');
@@ -5,6 +7,8 @@ const requiresLogin = (req, res, next) => {
   return next();
 };
 
+// Middleware that checks if user is logged out
+// Redirects to user's page if not
 const requiresLogout = (req, res, next) => {
   if (req.session.account) {
     return res.redirect('/user');
@@ -12,6 +16,8 @@ const requiresLogout = (req, res, next) => {
   return next();
 };
 
+// Middleware that checks if the user's connection is secure
+// Redirects them to a secure connection if not
 const requiresSecure = (req, res, next) => {
   if (req.headers['x-forwarded-proto'] !== 'https') {
     return res.redirect(`https://${req.hostname}${req.url}`);
@@ -19,6 +25,7 @@ const requiresSecure = (req, res, next) => {
   return next();
 };
 
+// Bypass for previous function
 const bypassSecure = (req, res, next) => {
   next();
 };

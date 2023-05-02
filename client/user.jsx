@@ -16,7 +16,6 @@ const UserPreview = (props) => {
 
 //Gets currently equipped appearance from database, then updates user preview
 const loadPreview = async () => {
-    // /getEquipped is finishing first for some reason
     const response = await fetch('/getEquipped');
     const data = await response.json();
     ReactDOM.render(
@@ -65,6 +64,7 @@ const addCurrency = (e) => {
     e.preventDefault();
     const money = 300;
     helper.sendPost('/addCurrency', {money});
+    loadStore();
 
     return false;
 }
@@ -89,10 +89,10 @@ const Store = (props) => {
             </div>
         )
     })
-    //Display user's currency amount, add button to add currency
     return(
         <div id='shop'>
             <button id='addCurrencyButton' onClick={(e) => addCurrency(e)}>Get more money</button>
+            <span id='currency'>{props.currency}</span>
             {shopList}
         </div>
     )
@@ -109,6 +109,16 @@ const loadInventory = async () => {
     )
 }
 
+const loadStore = async() => {
+    const response = await fetch('/getCurrency');
+    const data = await response.json();
+    ReactDOM.render(
+        <Store currency={data.currency}/>,
+        document.getElementById('items')
+    )
+}
+
+//Takes password values and changes current user's password
 const changePassword = (e) => {
     e.preventDefault();
 
@@ -131,6 +141,7 @@ const changePassword = (e) => {
     return false;
 }
 
+//React component for changing passwords
 const PasswordChange = (props) => {
     return(
         <form id="passwordChange"
@@ -161,10 +172,7 @@ const init = () => {
 
     storeButton.addEventListener('click', (e) => {
         e.preventDefault();
-        ReactDOM.render(
-            <Store />,
-            document.getElementById('items')
-        )
+        loadStore();
     });
 
     ReactDOM.render(

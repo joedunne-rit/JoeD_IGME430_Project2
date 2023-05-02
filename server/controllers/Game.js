@@ -1,9 +1,4 @@
 const gamePage = (req, res) => res.render('game');
-// const models = require('../models');
-
-// const { Account } = models;
-
-// Planning to use socket.io
 
 const playerList = [];
 
@@ -13,11 +8,9 @@ const playerList = [];
 // When a new client connects, adds them to the player list
 // Includes an id & their appearance currently in use
 const addPlayer = (id, image, callback) => {
-  console.log('player added');
   playerList.push({
     id, image, x: 0, y: 0,
   });
-  console.log(playerList);
   callback(playerList);
 };
 
@@ -25,10 +18,7 @@ const addPlayer = (id, image, callback) => {
 // Takes in id and direction, uses them to identify correct player character
 // If player cannot move, ends funciton early w/out calling update callback
 const movePlayer = (id, direction, callback) => {
-  console.log(id);
   const player = playerList.find((tempPlayer) => tempPlayer.id === id);
-  console.log(player);
-  console.log(direction);
   switch (direction) {
     case 0: // up
       if (player.y === 0) {
@@ -62,9 +52,7 @@ const movePlayer = (id, direction, callback) => {
 
 // When player disconnects, removes them from playerlist
 const removePlayer = (id, callback) => {
-  console.log('player removed');
   playerList.splice(playerList.map((p) => p.id).indexOf(id), 1);
-  console.log(playerList);
   callback(playerList);
 };
 

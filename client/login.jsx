@@ -2,6 +2,7 @@ const helper = require('./helper.js');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
+//Takes a username and password and logs in their respective account
 const handleLogin = (e) => {
     e.preventDefault();
     helper.hideError();
@@ -18,6 +19,7 @@ const handleLogin = (e) => {
     return false;
 }
 
+//Takes a username and password values and creates a new account
 const handleSignup = (e) => {
     e.preventDefault();
     helper.hideError();
@@ -41,6 +43,7 @@ const handleSignup = (e) => {
     return false;
 }
 
+//React component for logging in w/ an existing account
 const LoginWindow = (props) => {
     return(
         <form id="loginForm"
@@ -59,6 +62,7 @@ const LoginWindow = (props) => {
     );
 };
 
+//React component for signing up w/ a new account
 const SignupWindow = (props) => {
     return(
         <form id="signupForm"

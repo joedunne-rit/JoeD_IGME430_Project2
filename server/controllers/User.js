@@ -49,14 +49,12 @@ const purchase = async (req, res) => {
 
   // If account already owns item, cancels purchase
   if (doc.inventory.includes(req.body.itemName)) {
-    console.log('purchase denied, item already owned');
-    return res.status(200).json({ message: 'Item already owned!' });
+    return res.status(400).json({ message: 'Item already owned!' });
   }
 
   // If account does not have enough money, cancels purchase
   if (doc.currency < req.body.price) {
-    console.log('purchase denied');
-    return res.status(200).json({ message: 'Not enough currency!' });
+    return res.status(400).json({ message: 'Not enough currency!' });
   }
 
   // Deducts necessary amount, then adds item to inventory
@@ -96,6 +94,22 @@ const addCurrency = async (req, res) => {
   }
 };
 
+const getCurrency = async (req, res) => {
+  let doc;
+  try {
+    doc = await Account.findOne({ username: req.session.account.username }).exec();
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: 'Error getting currency' });
+  }
+
+  if (!doc) {
+    return res.status(400).json({ error: 'Account data not found' });
+  }
+
+  return res.status(200).json({ currency: doc.currency });
+};
+
 // Gets Account info and changes what is currently equipped
 const equip = async (req, res) => {
   let doc;
@@ -121,10 +135,8 @@ const equip = async (req, res) => {
   }
 };
 
-//Returns current session's username
-const getData = (req, res) => {
-  return res.status(200).json({ id: req.session.account.username });
-}
+// Returns current session's username
+const getData = (req, res) => res.status(200).json({ id: req.session.account.username });
 
 module.exports = {
   userPage,
@@ -132,6 +144,7 @@ module.exports = {
   getEquipped,
   purchase,
   addCurrency,
+  getCurrency,
   equip,
   getData,
 };
