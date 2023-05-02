@@ -18,6 +18,8 @@ const router = (app) => {
   app.post('/equip', mid.requiresLogin, controllers.User.equip);
   app.post('/changePassword', mid.requiresLogin, controllers.Account.changePassword);
 
+  app.get('/getID', mid.requiresLogin, controllers.User.getData);
+
   // app.post('/movePlayer', mid.requiresLogin, controllers.Game.movePlayer);
   // app.post('/removePlayer', mid.requiresLogin, controller.Game.removePlayer);
   // app.post('/addPlayer', mid.requiresLogin, controller.Game.addPlayer);
@@ -25,6 +27,7 @@ const router = (app) => {
   app.get('/logout', mid.requiresLogin, controllers.Account.logout);
 
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
+  app.get('/*', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
 };
 
 module.exports = router;

@@ -16,20 +16,21 @@ const setupSocket = (app) => {
   // When made, you can assign event listeners for any emits the socket does
   io.on('connection', (socket) => {
     console.log('User connected');
-
-    //When client is added, gets id/info and sends it to game.js
+    let playerID;
+    // When client is added, gets id/info and sends it to game.js
     socket.on('add', (info) => {
       game.addPlayer(info.id, info.image, update);
+      playerID = info.id;
     });
 
-    //When client moves, gets id/direction and sends to game.js
+    // When client moves, gets id/direction and sends to game.js
     socket.on('move', (info) => {
       game.movePlayer(info.id, info.direction, update);
     });
 
-    //When client disconnects, gets id to remove and sends to game.js for removal
-    socket.on('disconnect', (info) => {
-      game.removePlayer(info.id, update);
+    // When client disconnects, gets id to remove and sends to game.js for removal
+    socket.on('disconnect', () => {
+      game.removePlayer(playerID, update);
       console.log('User disconnected');
     });
   });

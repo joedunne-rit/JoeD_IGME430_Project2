@@ -121,6 +121,11 @@ const equip = async (req, res) => {
   }
 };
 
+//Returns current session's username
+const getData = (req, res) => {
+  return res.status(200).json({ id: req.session.account.username });
+}
+
 module.exports = {
   userPage,
   getInventory,
@@ -128,4 +133,5 @@ module.exports = {
   purchase,
   addCurrency,
   equip,
+  getData,
 };
