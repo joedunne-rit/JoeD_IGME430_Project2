@@ -87,10 +87,10 @@ const moveInput = (e, direction) => {
 const Controls = (props) => {
     return(
         <div id='controller'>
-            <img class='control' src='/assets/img/up.png' alt='' onClick={(e) => moveInput(e, 0)}></img>
-            <img class='control' src='/assets/img/left.png' alt='' onClick={(e) => moveInput(e, 1)}></img>
-            <img class='control' src='/assets/img/right.png' alt='' onClick={(e) => moveInput(e, 2)}></img>
-            <img class='control' src='/assets/img/down.png' alt='' onClick={(e) => moveInput(e, 3)}></img>
+            <img class='control' id="up" src='/assets/img/up.png' alt='' onClick={(e) => moveInput(e, 0)}></img>
+            <img class='control' id="left" src='/assets/img/left.png' alt='' onClick={(e) => moveInput(e, 1)}></img>
+            <img class='control' id="right" src='/assets/img/right.png' alt='' onClick={(e) => moveInput(e, 2)}></img>
+            <img class='control' id="down" src='/assets/img/down.png' alt='' onClick={(e) => moveInput(e, 3)}></img>
         </div>
     );
 };

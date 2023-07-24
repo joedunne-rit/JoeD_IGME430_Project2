@@ -84,8 +84,8 @@ const Store = (props) => {
         return(
             <div name={item} price='300' className='item'>
                 <img src={imageName} alt='preview of item'></img>
-                <div class='price'>{price}</div>
-                <button class='purchase' onClick={(e) => purchase(e, item, price)}>Buy</button>
+                <div class='price'>{price} <button class='purchase' onClick={(e) => purchase(e, item, price)}>Buy</button></div>
+                
             </div>
         )
     })
@@ -93,7 +93,7 @@ const Store = (props) => {
         <div id='shop'>
             <button id='addCurrencyButton' onClick={(e) => addCurrency(e)}>Get more money</button>
             <span id='currency'>{props.currency}</span>
-            {shopList}
+            <div id='shopList'>{shopList}</div>
         </div>
     )
 }

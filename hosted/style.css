@@ -21,6 +21,7 @@ img {
 nav {
     width: 100%;
     height: 50px;
+    margin: 0px 0px 20px;
     background-color: #55acee;
 }
 
@@ -149,6 +150,53 @@ nav:nth-child(1) {
     border-color:black;
 }
 
+#up {
+    grid-area: 'up';
+}
+#left {
+    grid-area: 'left';
+}
+#right {
+    grid-area: 'right';
+}
+#down {
+    grid-area: 'down';
+}
+
+#controller {
+    display: grid;
+    grid-template:
+        '. up .' 200px
+        'left . right' 200px
+        '. down .' 200px;
+}
+
 .tile {
     height: 100px;
+}
+
+#preview {
+    padding: 0px 25px 20px;
+}
+
+#menu {
+    padding: 0px 25px 0px;
+}
+
+.itemList {
+    display: grid;
+    width: 800px;
+    grid-gap: 50px;
+    grid: 200px / auto auto auto auto;
+}
+
+#shopList {
+    display: grid;
+    width: 800px;
+    grid-gap: 50px;
+    grid: 200px / auto auto auto auto;
+}
+
+.price {
+    margin: 10px 0px;
 }
