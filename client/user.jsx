@@ -152,10 +152,10 @@ const PasswordChange = (props) => {
             className="mainForm"
         >
             <label htmlFor="pass">Password: </label>
-            <input id="pass" type="text" name="pass" placeholder="password" />
+            <input id="pass" type="password" name="pass" placeholder="password" />
             <label htmlFor="pass">Password: </label>
-            <input id="pass2" type="text" name="pass2" placeholder="retype password" />
-            <input className="formSubmit" type="submit" value="Change Password" />
+            <input id="pass2" type="password" name="pass2" placeholder="retype password" />
+            <input id="passSubmit" className="formSubmit" type="submit" value="Change Password" />
         </form>
     )
 }

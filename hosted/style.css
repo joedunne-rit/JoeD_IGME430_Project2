@@ -4,6 +4,8 @@ html, body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    background-color: #aabbdd;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
 img {
@@ -23,6 +25,23 @@ nav {
     height: 50px;
     margin: 0px 0px 20px;
     background-color: #55acee;
+}
+
+#passHeader{
+    text-align:center;
+}
+
+#passwordChange {
+    height: 200px;
+    padding-top: 100px;
+}
+
+#passSubmit {
+    width:200px;
+}
+
+#game {
+    margin: 0 25px 30px;
 }
 
 nav:nth-child(1) {
@@ -145,30 +164,44 @@ nav:nth-child(1) {
 
 #gameboard {
     display: grid;
+    margin: 0 auto;
     width:400px;
     grid: 100px / auto auto auto auto;
     border-color:black;
 }
 
 #up {
-    grid-area: 'up';
+    grid-area: up;
 }
 #left {
-    grid-area: 'left';
+    grid-area: left;
 }
 #right {
-    grid-area: 'right';
+    grid-area: right;
 }
 #down {
-    grid-area: 'down';
+    grid-area: down;
 }
 
 #controller {
+    width: 330px;
+    margin: 0 auto;
     display: grid;
+    grid-gap:10px;
     grid-template:
-        '. up .' 200px
-        'left . right' 200px
-        '. down .' 200px;
+        '. up .' 100px
+        'left . right' 100px
+        '. down .' 100px;
+}
+
+img.control {
+    width: 100px;
+    height: 100px;
+}
+
+img.control:hover {
+    outline: solid;
+    outline-color: black;
 }
 
 .tile {
@@ -181,6 +214,10 @@ nav:nth-child(1) {
 
 #menu {
     padding: 0px 25px 0px;
+}
+
+#items {
+    padding: 50px 0;
 }
 
 .itemList {
